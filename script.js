@@ -1,5 +1,6 @@
 let noCount = 0;
 let lastStep = false; // Track if it's the last step
+let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); // Detect mobile
 
 // Function when "Yes" is clicked
 function sayYes() {
@@ -46,13 +47,17 @@ function sayNo() {
     } else if (noCount === 3) {
         message.innerText = "Okay, last chance! Please say Yes 😭";
     } else {
-        // On the last click, make the "No" button start moving on hover
-        noButton.setAttribute("onmouseover", "moveNoButton()");
+        // On the last click, make the "No" button start moving
         lastStep = true; // Set last step to true
+        if (isMobile) {
+            noButton.setAttribute("onclick", "moveNoButton()"); // Move when clicked (mobile)
+        } else {
+            noButton.setAttribute("onmouseover", "moveNoButton()"); // Move when hovered (desktop)
+        }
     }
 }
 
-// Function to move "No" button when hovered (only after 3 clicks)
+// Function to move "No" button
 function moveNoButton() {
     let noButton = document.querySelector(".no");
     
