@@ -47,12 +47,14 @@ function sayNo() {
     } else if (noCount === 3) {
         message.innerText = "Okay, last chance! Please say Yes 😭";
     } else {
-        // On the last click, make the "No" button start moving
+        // On the last click, enable movement immediately
         lastStep = true; // Set last step to true
+
         if (isMobile) {
-            noButton.setAttribute("onclick", "moveNoButton()"); // Move when clicked (mobile)
+            noButton.setAttribute("ontouchstart", "moveNoButton()"); // Move when touched (mobile)
         } else {
             noButton.setAttribute("onmouseover", "moveNoButton()"); // Move when hovered (desktop)
+            moveNoButton(); // Move immediately after last click
         }
     }
 }
